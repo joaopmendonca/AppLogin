@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {View, Text, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
-
+import Home from './src/screens/Home/Home';
 import Login from './src/screens/Login/Login';
 
 const App = () => {

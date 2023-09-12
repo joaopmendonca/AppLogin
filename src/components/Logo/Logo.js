@@ -5,4 +5,5 @@ import {Image} from 'react-native';
 
 export default Logo = () => {
   return <Image source={logoIcon} />;
+  
 };
