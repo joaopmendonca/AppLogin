@@ -7,6 +7,7 @@ import CreateUser from './src/screens/CreateUser/CreateUser';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import EditUser from './src/screens/EditUser/EditUser';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ const App = () => {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="CreateUser" component={CreateUser} />
+          <Stack.Screen name="EditUser" component={EditUser} />
         </Stack.Navigator>
       </SafeAreaView>
     </NavigationContainer>

@@ -13,18 +13,33 @@ import CustomButton from '../../components/CustomButton/CustonButton';
 
 import {useNavigation} from '@react-navigation/native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Login = () => {
   const navigation = useNavigation();
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState(''); // Alterado de login para email
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    if (!login || !password) {
+  const handleLogin = async () => {
+    if (!email || !password) {
       Alert.alert('Por favor, preencha todos os campos');
     } else {
-      navigation.navigate('Home', {userName: login}); //Temporário!!!
+      try {
+        const jsonValue = await AsyncStorage.getItem('@user_data');
+        const userData = jsonValue != null ? JSON.parse(jsonValue) : null;
+  
+        if (userData && userData.email === email && userData.password === password) {
+          setPassword(''); // Limpa o campo da senha
+          navigation.navigate('Home');
+        } else {
+          Alert.alert('Email ou senha incorretos');
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
+  
 
   const handleCreateUser = () => {
     navigation.navigate('CreateUser');
@@ -37,12 +52,12 @@ const Login = () => {
       </View>
       <View style={styles.inputContainer}>
         <View style={styles.input}>
-          <Text style={styles.label}>Login</Text>
+          <Text style={styles.label}>Email</Text>
           <TextInput
-            placeholder="Digite seu login"
+            placeholder="Digite seu email cadastrado" // Alterado de e-mail para email
             style={styles.inputField}
-            value={login}
-            onChangeText={text => setLogin(text)}
+            value={email} // Alterado de login para email
+            onChangeText={text => setEmail(text)} // Alterado de setLogin para setEmail
           />
         </View>
         <View style={styles.input}>
