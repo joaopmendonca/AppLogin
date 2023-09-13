@@ -3,23 +3,33 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'rea
 import Logo from '../../components/Logo/Logo';
 import CustomButton from '../../components/CustomButton/CustonButton';
 
-import configurationIcon from './../../images/icon-configuration.png';
+import configurationIcon from './../../images/icon-configuration.png'
 
-const Home = () => {
+import { useNavigation } from '@react-navigation/native';;
+
+
+
+const Home = ( { route }) => {
+  const {userName } = route.params;
+  
+  const navigation = useNavigation();
+
+  const handleLogout = () => {
+    navigation.navigate('Login');
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.pageContainer}>
       <View style={styles.logoContainer}>
         <Logo />
         <View style={styles.createAccountContainer}>
-          <Text style={styles.label}>Olá Usuário, seja bem-vindo!</Text>
+          <Text style={styles.label}>Olá {userName}, seja bem-vindo!</Text>
         </View>
       </View>
       <CustomButton
         text="Sair"
         color="#E65A6E"
-        onPress={() => {
-          /* Adicione sua lógica de saída aqui */
-        }}
+        onPress={handleLogout}
       />
       <TouchableOpacity style={styles.configurationButton}>
         <Image source={configurationIcon} />

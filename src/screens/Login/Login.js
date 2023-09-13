@@ -6,16 +6,28 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import Logo from '../../components/Logo/Logo';
 import CustomButton from '../../components/CustomButton/CustonButton';
 
+import {useNavigation} from '@react-navigation/native';
+
 const Login = () => {
+  const navigation = useNavigation();
   const [login, setLogin] = useState('');
-  const [senha, setSenha] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Lógica de login aqui
+    if (!login || !password) {
+      Alert.alert('Por favor, preencha todos os campos');
+    } else {
+      navigation.navigate('Home', {userName: login}); //Temporário!!!
+    }
+  };
+
+  const handleCreateUser = () => {
+    navigation.navigate('CreateUser');
   };
 
   return (
@@ -39,8 +51,8 @@ const Login = () => {
             placeholder="Digite sua senha"
             style={styles.inputField}
             secureTextEntry
-            value={senha}
-            onChangeText={text => setSenha(text)}
+            value={password}
+            onChangeText={text => setPassword(text)}
           />
         </View>
         <TouchableOpacity style={styles.forgotPasswordContainer}>
@@ -50,10 +62,7 @@ const Login = () => {
       </View>
       <View style={styles.createAccountContainer}>
         <Text style={styles.label}>Ainda não tem conta?</Text>
-        <TouchableOpacity
-          onPress={() => {
-            /* Adicione sua lógica de criar conta aqui */
-          }}>
+        <TouchableOpacity onPress={handleCreateUser}>
           <Text style={styles.createAccountLink}>Criar Conta</Text>
         </TouchableOpacity>
       </View>
